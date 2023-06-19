@@ -33,7 +33,7 @@ export default function AuthForm({}: Props) {
         }
     })
 
-    const onSumit: SubmitHandler<FieldValues> = (data)=>{
+    const onSubmit: SubmitHandler<FieldValues> = (data)=>{
         setIsLoading(true)
 
         if(variant === 'LOGIN') {
@@ -57,7 +57,7 @@ export default function AuthForm({}: Props) {
         <div className='px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10'>
             <form 
                 className='space-y-6'
-                onSubmit={handleSubmit(onSumit)}
+                onSubmit={handleSubmit(onSubmit)}
             >
                 {variant === 'REGISTER' && (
                 <Inputs disabled={isLoading} id="name" label="name" register={register} errors={errors}/>
