@@ -32,6 +32,7 @@ model User {
 
 model Account {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  type      String
   userId    String   @db.ObjectId
   provider  String
   providerAccountId String

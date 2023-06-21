@@ -2,10 +2,14 @@
 
 import Button from '@/app/components/buttons'
 import Inputs from '@/app/components/inputs/Inputs'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FieldValues, useForm, SubmitHandler } from 'react-hook-form'
 import AuthSocialButton from './AuthSocialButton'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
+import axios from 'axios'
+import { toast } from "react-hot-toast"
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 type Props = {}
 
@@ -14,6 +18,16 @@ type Variant = "LOGIN" | "REGISTER"
 export default function AuthForm({}: Props) {
     const [variant, setvariant] = useState<Variant>('LOGIN')
     const [isLoading, setIsLoading] = useState(false)
+    const session = useSession()
+    const router = useRouter()
+
+    useEffect(() => {
+      if(session?.status === "authenticated"){
+        console.log(session)
+        router.push("/user")
+      }
+    }, [session?.status, router, session])
+    
 
     const toggleVariant = useCallback(() => {
         if (variant === 'LOGIN') {
@@ -37,11 +51,34 @@ export default function AuthForm({}: Props) {
         setIsLoading(true)
 
         if(variant === 'LOGIN') {
-
+            signIn('credentials', {
+                ...data,
+                redirect: false,
+            })
+            .then((callback)=>{
+                if (callback?.error) {
+                    toast.error("Invalid Credentials")
+                }
+                if(callback?.ok && !callback?.error){
+                    toast.success("Logged in successfully")
+                    router.push("/user")
+                }
+            })
+            .finally(()=>{
+                setIsLoading(false)
+            })
+        
         }
 
-        else { 
-
+        else {
+            axios.post('/api/register', data)
+            .then(()=>{signIn("credentials", data)})
+            .catch((err)=>{
+                toast.error("Something went wrong")
+            })
+            .finally(()=>{
+                setIsLoading(false)
+            })
         }
         console.log(data)
     } 
@@ -49,6 +86,20 @@ export default function AuthForm({}: Props) {
     const socialAction = (action: string)=>{
         setIsLoading(true)
         // Social Auth
+
+        signIn(action, { redirect: false })
+        .then((callback)=>{
+            if(callback?.error){
+                toast.error("Something went wrong")
+            }
+            if(callback?.ok && !callback?.error){
+                toast.success("Logged in successfully")
+                router.push("/user")
+            }
+        })
+        .finally(()=>{
+            setIsLoading(false)
+        })
 
     }
 
