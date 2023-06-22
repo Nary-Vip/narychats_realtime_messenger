@@ -30,7 +30,6 @@ const DesktopItem:React.FC<DesktopItemsProps> = ({
             <span className='sr-only'>
                 {label}
             </span>
-=
         </Link>
     </li>
   )
