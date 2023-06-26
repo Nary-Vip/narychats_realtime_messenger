@@ -1,6 +1,7 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb"
+import { pusherServer } from "@/app/libs/pusher";
 
 export async function POST(req: Request){
     try {
@@ -13,7 +14,7 @@ export async function POST(req: Request){
         }
 
         if(isGroup && (!members || members.length < 2 || !name)){
-            return new NextResponse("Invalid Data", {status: 400})
+            return new NextResponse("Group should have atleast 3 members", {status: 400})
         }
 
         if(isGroup){
@@ -36,6 +37,13 @@ export async function POST(req: Request){
                     users: true
                 }
             })
+            newConversation.users.forEach((user)=>{
+                if(user.email){
+                    // Triggers New group to all user in the group
+                    pusherServer.trigger(user.email, "conversation:new", newConversation)
+                }
+            })
+            
 
             return NextResponse.json(newConversation)
         }
@@ -82,6 +90,12 @@ export async function POST(req: Request){
                 },
                 include: {
                     users: true
+                }
+            })
+
+            newConversation.users.map((user)=>{
+                if(user.email){
+                    pusherServer.trigger(user.email, "conversation:new", newConversation)
                 }
             })
             return NextResponse.json(newConversation)
