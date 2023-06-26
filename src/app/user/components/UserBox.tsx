@@ -1,4 +1,5 @@
-import Avatar from '@/app/components/sidebar/Avatar'
+import Avatar from '@/app/components/Avatar'
+import LoadingModal from '@/app/components/LoadingModal'
 import { User } from '@prisma/client'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
@@ -31,6 +32,9 @@ const UserBox:React.FC<UserBoxProps> = ({data}) => {
   )
   
   return (
+    <>
+    {isLoading &&
+    <LoadingModal />}
     <div className='relative flex items-center w-full p-3 space-x-3 text-gray-800 transition bg-white rounded-lg cursor-pointer hover:bg-neutral-100 hover:text-gray-900' onClick={handleClick}>
         <Avatar user={data}/>
         <div className='flex-1 min-w-0'>
@@ -42,9 +46,9 @@ const UserBox:React.FC<UserBoxProps> = ({data}) => {
                 </div>
             </div>
             
-        </div>
-        
+        </div> 
     </div>
+    </>
   )
 }
 

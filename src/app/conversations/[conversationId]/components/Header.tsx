@@ -1,12 +1,13 @@
 "use client"
 
-import Avatar from '@/app/components/sidebar/Avatar'
+import Avatar from '@/app/components/Avatar'
 import { useOtherUser } from '@/app/hooks/useOtherUser'
 import { Conversation, User } from '@prisma/client'
 import Link from 'next/link'
 import React, { useMemo, useState } from 'react'
 import { HiChevronLeft, HiEllipsisHorizontal } from 'react-icons/hi2'
 import ProfileDrawer from './ProfileDrawer'
+import AvatarGroup from '@/app/components/AvatarGroup'
 
 interface HeaderProps{
     conversation: Conversation & {
@@ -34,7 +35,7 @@ const Header:React.FC<HeaderProps> = ({conversation}) => {
             <Link href="/conversations" className='block transition cursor-pointer lg:hidden text-sky-500 hover:text-sky-600'>
                 <HiChevronLeft size={32}/>
             </Link>
-            <Avatar user={otherUser}/>
+            {conversation.isGroup ? (<AvatarGroup users={conversation.users} />):(<Avatar user={otherUser} />)}
             <div className='flex flex-col'>
                 <div>
                     {conversation.name || otherUser.name}

@@ -1,12 +1,13 @@
 "use client"
 
-import Avatar from '@/app/components/sidebar/Avatar'
+import Avatar from '@/app/components/Avatar'
 import { FullMessageType } from '@/app/types'
 import clsx from 'clsx'
 import { useSession } from 'next-auth/react'
 import { format } from 'date-fns'
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
+import ImageModal from './ImageModal'
 
 interface MessageBoxProps{
     isLast?: boolean
@@ -15,7 +16,7 @@ interface MessageBoxProps{
 
 const MessageBox = ({isLast,data}:MessageBoxProps) => {
     const session = useSession()
-
+    const [imageModalOpen, setImageModalOpen] = useState(false)
     const isOwn = session?.data?.user?.email === data.sender.email
     const seenList = (data.seen || []).filter((user)=>user.email !== session?.data?.user?.email)
     .map((user)=>user.name).join(', ')
@@ -55,7 +56,8 @@ const MessageBox = ({isLast,data}:MessageBoxProps) => {
                 </div>
             </div>
             <div className={message}>
-                {data.image? (<Image className='object-cover transition cursor-pointer hover:scale-110 translate' height={288} width={288} src={data.image} alt="attachment"/>):(<div>{data.body}</div>)}
+                <ImageModal src={data.image} isOpen={imageModalOpen} onClose={()=>setImageModalOpen(false)}/>
+                {data.image? (<Image onClick={()=>{ setImageModalOpen(true) }} className='object-cover transition cursor-pointer hover:scale-110 translate' height={288} width={288} src={data.image} alt="attachment"/>):(<div>{data.body}</div>)}
             </div>
             {
                 isLast && isOwn && seenList.length > 0 && (
