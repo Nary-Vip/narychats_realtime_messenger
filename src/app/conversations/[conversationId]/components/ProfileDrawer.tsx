@@ -90,7 +90,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                             <div className='relative flex-1 px-4 mt-6 sm:px-6'>
                                                 <div className="flex flex-col items-center">
                                                     <div className="mb-2">
-                                                    {data.isGroup ? (<AvatarGroup users={data.users} />):(<Avatar user={otherUser} />)}
+                                                    {data.isGroup ? (<AvatarGroup users={data.users} />):(<Avatar profile={true} user={otherUser} />)}
                                                     </div>
                                                     <div className="">
                                                         {title}
@@ -98,18 +98,8 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                                     <div className="text-sm text-gray-500 ">
                                                         {statusText}
                                                     </div>
-                                                    <div className="flex gap-10 my-8">
-                                                        <button onClick={()=>{setIsModalOpen(true)}}
-                                                            className="flex flex-col items-center gap-3 cursor-pointer felx-col hover:opacity-75">
-                                                            <div className="flex items-center justify-center w-10 h-10 text-white rounded-full bg-rose-400">
-                                                                <IoTrash size={20}/>
-                                                            </div>
-                                                            <div className="text-sm font-light text-neutral-600">
-                                                                Delete
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                    <div className="w-full py-5 sm:px-0 sm:pt-0">
+                                                   
+                                                    <div className="w-full py-5 mt-14 sm:px-0 sm:pt-0">
                                                         <dl className="px-4 space-y-8 sm:space-y-6 sm:px-6"> 
                                                         {data.isGroup &&(
                                                         <div>
@@ -150,6 +140,17 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                                             )}
                                                         </dl>
 
+                                                    </div>
+                                                    <div className="flex gap-10 my-8 mt-10">
+                                                        <button onClick={()=>{setIsModalOpen(true)}}
+                                                            className="flex flex-col items-center gap-3 cursor-pointer felx-col hover:opacity-75">
+                                                            <div className="flex items-center justify-center w-10 h-10 text-white rounded-full bg-rose-400">
+                                                                <IoTrash size={20}/>
+                                                            </div>
+                                                            <div className="text-sm font-light text-neutral-600">
+                                                                Delete
+                                                            </div>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
