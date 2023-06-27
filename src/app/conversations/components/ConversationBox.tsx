@@ -78,7 +78,7 @@ const ConversationBox:React.FC<ConversationBoxProps> = ({data, selected}) => {
             </p>
           )}
         </div>
-      <p className={clsx(`text-xs font-light text-gray-400 truncate`,
+      <p className={clsx(`text-xs font-light truncate`,
       hasSeen? "text-gray-500" : "text-black font-medium"
       
       )}>

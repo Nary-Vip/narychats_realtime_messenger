@@ -67,20 +67,21 @@ const SettingsModal:React.FC<SettingsModalsProps> = ({
                             Edit your profile
                         </p>
                         <div className="flex flex-col mt-10 gap-y-8">
-                            <Input label="Name" id="name" register={register} errors={errors} disabled={isLoading} required/>
-                            <div>
-                                <label className='block text-sm font-medium leading-6 text-gray-900'>
+                            
+                            
+                                    {/* <label className='block text-sm font-medium leading-6 text-gray-900'>
                                     Photo
-                                </label>
-                                <div className="flex items-center mt-2 gap-x-3"> 
-                                    <Image src={image || currentUser?.image || '/images/person.jpg'} className="rounded-full" alt="Profile Image" height={48} width={48}/>
+                                </label> */}
+                                <div className="flex flex-col items-center mt-2 gap-x-3"> 
+                                    <Image src={image || currentUser?.image || '/images/person.jpg'} className="rounded-full shadow" alt="Profile Image" height={80} width={80}/>
                                     <CldUploadButton options={{maxFiles:1}} onUpload={handleUpload} uploadPreset='s3eutor4'>
                                         <Button disabled={isLoading} secondary type="button">
                                             Change
                                         </Button>
                                     </CldUploadButton>
                                 </div>
-                            </div>
+                            
+                            <Input label="Name" id="name" register={register} errors={errors} disabled={isLoading} required/>   
                         </div>
 
                     </div>
