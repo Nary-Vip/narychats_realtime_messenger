@@ -9,6 +9,7 @@ import Input from '../inputs/Inputs'
 import Image from 'next/image'
 import { CldUploadButton } from 'next-cloudinary'
 import Button from '../buttons'
+import { AiOutlineEdit } from "react-icons/ai"
 
 interface SettingsModalsProps{
     isOpen: boolean
@@ -59,28 +60,19 @@ const SettingsModal:React.FC<SettingsModalsProps> = ({
         <Modal onClose={onClose} isOpen={isOpen}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-12">
-                    <div className="pb-12 border-b border-gray-900/10">
-                        <h2 className="text-base font-semibold leading-7 text-gray-900">
-                            Profile
-                        </h2>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">
+                    <div className="mt-4">
+                        <h2 className="text-base font-semibold leading-7 text-center text-gray-900">
                             Edit your profile
-                        </p>
-                        <div className="flex flex-col mt-10 gap-y-8">
-                            
-                            
-                                    {/* <label className='block text-sm font-medium leading-6 text-gray-900'>
-                                    Photo
-                                </label> */}
-                                <div className="flex flex-col items-center mt-2 gap-x-3"> 
+                        </h2>
+                        <div className="flex flex-col mt-6 gap-y-8 ">
+                                <div className="flex items-center justify-center pb-6 border-b border-gray-900/10"> 
                                     <CldUploadButton options={{maxFiles:1}} onUpload={handleUpload} uploadPreset='s3eutor4'>
-                                    <Image src={image || currentUser?.image || '/images/person.jpg'} className="rounded-full shadow" alt="Profile Image" height={80} width={80}/>
+                                        <Image src={image || currentUser?.image || '/images/person.jpg'} className="transition rounded-full shadow hover:opacity-80" alt="Profile Image" height={90} width={90}/>
                                     </CldUploadButton>
-                                </div>
-                            
+                                    {/* <AiOutlineEdit className='absolute bottom-0 right-0' size={20}/> */}
+                                </div> 
                             <Input label="Name" id="name" register={register} errors={errors} disabled={isLoading} required/>   
                         </div>
-
                     </div>
                     <div className="flex items-center justify-end mt-6 gap-x-6">
                         <Button disabled={isLoading} secondary type="button" onClick={onClose}>
