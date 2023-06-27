@@ -73,11 +73,8 @@ const SettingsModal:React.FC<SettingsModalsProps> = ({
                                     Photo
                                 </label> */}
                                 <div className="flex flex-col items-center mt-2 gap-x-3"> 
-                                    <Image src={image || currentUser?.image || '/images/person.jpg'} className="rounded-full shadow" alt="Profile Image" height={80} width={80}/>
                                     <CldUploadButton options={{maxFiles:1}} onUpload={handleUpload} uploadPreset='s3eutor4'>
-                                        <Button disabled={isLoading} secondary type="button">
-                                            Change
-                                        </Button>
+                                    <Image src={image || currentUser?.image || '/images/person.jpg'} className="rounded-full shadow" alt="Profile Image" height={80} width={80}/>
                                     </CldUploadButton>
                                 </div>
                             
