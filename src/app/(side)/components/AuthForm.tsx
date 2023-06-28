@@ -10,6 +10,9 @@ import axios from 'axios'
 import { toast } from "react-hot-toast"
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import LoadingModal from './LoadingModal'
+import Modal from '@/app/components/Modal'
+import Image from 'next/image'
 
 type Props = {}
 
@@ -104,6 +107,12 @@ export default function AuthForm({}: Props) {
     }
 
   return (
+  <>
+  {isLoading && <Modal isOpen={isLoading} onClose={() =>{}} closeButton={false}>
+    <div className="flex items-center justify-center bg-black">
+        <Image src={"/images/fox_loading.gif"} height={200} width={200} alt="Loading GIF"/>
+    </div>
+    </Modal>}
     <div className='mt-8 sm:mx-auto sm:max-w-md sm:w-full'>
         <div className='px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10'>
             <form 
@@ -164,5 +173,6 @@ export default function AuthForm({}: Props) {
             
         </div>
     </div>
+    </>
   )
 }

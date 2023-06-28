@@ -19,7 +19,7 @@ const getUsers = async()=>{
                 }
             }
         })
-
+        console.log("checking for people === ", users)
         return users
 
     } catch (error) {

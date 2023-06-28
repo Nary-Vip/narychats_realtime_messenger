@@ -6,7 +6,7 @@ import UserBox from './UserBox'
 type Props = {}
 
 interface UserListProps{
-    items: User[]
+    items?: User[]
 }
 
 const UserList:React.FC<UserListProps> = ({items}) => {
@@ -22,7 +22,8 @@ const UserList:React.FC<UserListProps> = ({items}) => {
                     Tap on any user to start the conversation
                 </div>
             </div>
-            {items.map((item)=><UserBox key={item.id} data={item}/>)}
+            {items !== undefined && items?.length !== 0 ?
+            items.map((item)=><UserBox key={item.id} data={item}/>) : <p>No Users</p>}
         </div>
     </aside>
   )

@@ -57,7 +57,7 @@ const SettingsModal:React.FC<SettingsModalsProps> = ({
 
   return (
     <div>
-        <Modal onClose={onClose} isOpen={isOpen}>
+        <Modal onClose={onClose} isOpen={isOpen} closeButton={true}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-12">
                     <div className="mt-4">

@@ -47,7 +47,7 @@ const ConfirmModal:React.FC<ConfirmModalProps> = ({
     }, [conversationId, router, onClose])
     
   return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} closeButton={true}>
             <div className='sm:flex sm:items-start'>
                 <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto rounded-full bg-rose-100 sm:mx-0 sm:h-10 sm:w-10">
                     <FiAlertTriangle className='w-6 h-6 text-red-600'/>
